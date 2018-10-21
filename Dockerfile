@@ -7,14 +7,13 @@ RUN apt-get update -qq && apt-get install -qqy apt-transport-https iptables ca-c
 
 # install docker
 RUN apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
-RUN echo deb https://apt.dockerproject.org/repo ubuntu-trusty main > /etc/apt/sources.list.d/docker.list
-RUN apt-get update -qq && apt-get install -qqy  lxc lxc-docker
+RUN echo "deb https://apt.dockerproject.org/repo ubuntu-trusty main" > /etc/apt/sources.list.d/docker.list
+RUN apt-get update && apt-get install -y docker-engine
 
 # install docker compose
 ENV COMPOSE_VERSION 1.4.0
-
-RUN curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose \
-    && chmod +x /usr/local/bin/docker-compose
+RUN curl -L https://github.com/docker/compose/releases/download/1.16.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+RUN chmod +x /usr/local/bin/docker-compose
 
 # install jenkins
 ENV JENKINS_HOME /opt/jenkins/data
